@@ -1,5 +1,10 @@
 
-Since this is the first version, there is all new ;)
+v1.05:
+  * added bfround(), bround(), bfac(), bmodinv(), bmodpow() to tests
+  * removed some double tests
+  * added some more tests for allowed operations
+  * small doc fixes and enhancements
+  * converted test file to Test::More
 
 Please have arbitrarily big amounts of fun.
 
