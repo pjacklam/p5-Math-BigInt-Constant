@@ -1,10 +1,8 @@
 
-v1.05:
-  * added bfround(), bround(), bfac(), bmodinv(), bmodpow() to tests
-  * removed some double tests
-  * added some more tests for allowed operations
-  * small doc fixes and enhancements
-  * converted test file to Test::More
+v1.06:
+  * require Math::BigInt v1.74
+  * use like() in tests and add a few more
+  * write our own META.yml in Makefile.PL to fix License field
 
 Please have arbitrarily big amounts of fun.
 
