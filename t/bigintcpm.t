@@ -1,55 +1,83 @@
 #!/usr/bin/perl -w
 
 use strict;
-use Test;
+use Test::More;
 
 BEGIN 
   {
   $| = 1;
   chdir 't' if -d 't';
-  unshift @INC, '../lib'; # for running manually
-  plan tests => 79;
+  unshift @INC, '../lib'; 	# for running manually
+  plan tests => 26*3 + 2*3 + 19;
   }
 
 use Math::BigInt::Constant;
 
 my $x = Math::BigInt::Constant->new(8);
 
-ok (ref $x,'Math::BigInt::Constant');
-ok ($x,8);
-ok ($x+2,10);
+###########################################################################
+# allowed operations
 
-ok ($x->bfloor(),8);
-ok ($x->bceil(),8);
+is (ref $x,'Math::BigInt::Constant', 'ref');
+is ($x,8, 'new');
+is ($x+2,10, ' copy add works');
+
+is ($x->bfloor(),8, 'floor');
+is ($x->bceil(),8 , 'ceil');
+
+is ($x->as_int(), 8 , 'as_int');
+is ($x->as_number(), 8 , 'as_number');
+
+is ($x->is_pos(), 1, 'is_pos');
+is ($x->is_int(), 1, 'is_int');
+
+is ($x->is_neg(), 0, 'is_neg');
+is ($x->is_one(), 0, 'is_one');
+is ($x->is_nan(), 0, 'is_nan');
+is ($x->is_inf(), 0, 'is_inf');
+is ($x->is_zero(), 0, 'is_zero');
+
+is ($x->bstr(), '8' , 'bstr');
+is ($x->bsstr(), '8e+0' , 'bsstr');
+is ($x->digit(0), '8' , 'digit');
 
 my $y = Math::BigInt::Constant->new(32);
-ok ($x->bgcd($y),8);
+is ($x->bgcd($y),8, 'gcd');
 $y = Math::BigInt::Constant->new(53);
 my $z = Math::BigInt::Constant->new(19);
-ok ($x->blcm($y,$z),19*53*8);	
+is ($x->blcm($y,$z),19*53*8, 'lcm');	
 my ($try,$rc);
 
-# 24*3 tests
-foreach (qw/badd bmul bdiv bmod  binc  bdec  bsub bnot bneg  babs bfac blog
-            bxor bior bpow blsft brsft bzero bnan binf bsqrt bnan binf band
-	   /)
+###########################################################################
+# disallowed operation
+
+# binary operations
+# 26*3 tests
+foreach (qw/
+	badd bsub bmul bdiv bmod  binc  bdec  bnot bneg babs
+        bxor bior band bpow blsft brsft
+        bnan binf bzero
+	bfac broot bsqrt bfac blog
+	bfround bround
+	/)
   {
   $@ = ''; $try = "\$x->$_(2);"; $rc = eval $try; 
-  print "# tried: $_()\n" unless ok ($x,8); 
-  ok_undef ($rc);
-  ok ($@,qr/^Can not/);
+  print "# tried: $_()\n" unless is ($x,8, 'x is 8'); 
+  is ($rc, undef, 'undef');
+  is ($@ =~ /^Can not/, 1, 'died');
+  }
+        
+# ternary operations
+# 2*3 tests
+foreach (qw/
+	bmodpow bmodinv
+	/ )
+  {
+  $@ = ''; $try = "\$x->$_(2,3);"; $rc = eval $try; 
+  print "# tried: $_()\n" unless is ($x,8, 'x is 8'); 
+  is ($rc, undef, 'undef');
+  is ($@ =~ /^Can not/, 1, 'died');
   }
 
 1;
-
-###############################################################################
-# Perl 5.005 does not like ok ($x,undef)
-
-sub ok_undef
-  {
-  my $x = shift;
-
-  ok (1,1) and return if !defined $x;
-  ok ($x,'undef');
-  }
 

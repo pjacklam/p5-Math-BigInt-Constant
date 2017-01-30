@@ -3,25 +3,20 @@
 package Math::BigInt::Constant;
 my $class = "Math::BigInt::Constant";
 
-$VERSION = 1.04;
-use Exporter;
+$VERSION = 1.05;
 use Math::BigInt;
-@ISA =       qw( Exporter Math::BigInt );
-@EXPORT_OK = qw();
-@EXPORT = qw();
+@ISA =       qw( Math::BigInt );
 use strict;
 
-use overload; 
+use overload;	# inherit from Math::BigInt 
 
 ##############################################################################
 # We Are a True Math::BigInt, But Thou Shallst Not Modify Us
 
 sub modify
   {
-  my $self = shift;
-  my $method = shift;
-  #print "M::BI::C modify ",ref($self)," by $method\n";
-  die "Can not modify $class $self via $method"."()\n";
+  my ($self,$method) = @_;
+  die ("Can not modify " . ref($self) . " $self via $method"."()\n");
   }
 
 ##############################################################################
@@ -47,10 +42,15 @@ Math::BigInt::Constant - Arbitrary sized constant integers
 
   use Math::BigInt::Constant;
 
-  # Number creation	
-  $x = Math::BigInt->new($str);	# defaults to 0
-  $nan  = Math::BigInt->bnan(); # create a NotANumber
-  $zero = Math::BigInt->bzero();# create a "+0"
+  my $class = 'Math::BigInt::Constant';
+
+  # Constant creation	
+  $x     = $class->new($str); 	# defaults to 0
+  $nan   = $class->bnan();	# create a NotANumber
+  $zero  = $class->bzero();	# create a "0"
+  $one   = $class->bone();	# create a "1"
+  $m_one = $class->bone('-');	# create a "-1"
+
 
   # Testing
   $x->is_zero();		# return wether arg is zero or not
@@ -61,11 +61,14 @@ Math::BigInt::Constant - Arbitrary sized constant integers
   $x->is_even();		# return true if even, false for odd
   $x->is_inf($sign);		# return true if argument is +inf or -inf, give
 				# argument ('+' or '-') to match only same sign
+  $x->is_pos();			# return true if arg >= 0
+  $x->is_neg();			# return true if arg < 0
+
   $x->bcmp($y);			# compare numbers (undef,<0,=0,>0)
   $x->bacmp($y);		# compare absolutely (undef,<0,=0,>0)
   $x->sign();			# return the sign, one of +,-,+inf,-inf or NaN
 
-  # The following would modify and thus are illegal:
+  # The following would modify and thus are illegal, e.g. result in a die():
 
   # set 
   $x->bzero();			# set $x to 0
@@ -94,23 +97,27 @@ Math::BigInt::Constant - Arbitrary sized constant integers
   $x->bxor($y);			# bit-wise exclusive or
   $x->bnot();			# bit-wise not (two's complement)
 
-  $x->bsqrt();                  # calculate square-root
+  $x->bsqrt();			# calculate square-root
+  $x->broot($y);		# calculate $y's root
+  $x->blog($base);		# calculate integer logarithm
 
   $x->round($A,$P,$round_mode); # round to accuracy or precision using mode $r
   $x->bround($N);               # accuracy: preserve $N digits
   $x->bfround($N);              # round to $Nth digit, no-op for BigInts
 
-  # The following do not modify their arguments in BigInt, but do in BigFloat:
+  # The following do not modify their arguments in BigInt, so they are allowed:
   $x->bfloor();                 # return integer less or equal than $x
   $x->bceil();                  # return integer greater or equal than $x 
-
-  # The following do not modify their arguments and are ok:
 
   bgcd(@values);		# greatest common divisor
   blcm(@values);		# lowest common multiplicator
   
   $x->bstr();			# return normalized string
+  $x->bsstr();			# return string in scientific notation
   $x->length();			# return number of digits in number
+  $x->digit($n);		# extract N'th digit from number
+  
+  $x->as_int();			# return a copy of the object as BigInt
 
 =head1 DESCRIPTION
 
@@ -137,7 +144,7 @@ these provide runtime checks and can be interpolated into strings:
 
 	print "$x\n";			# okay
 	print $x+2,"\n";		# dito
-	$x += 2;			# not okay
+	$x += 2;			# not okay, will die
 
 =head1 BUGS
 
@@ -145,6 +152,6 @@ None discovered yet.
 
 =head1 AUTHORS
 
-Tels http://bloodgate.com in early 2001.
+(c) by Tels http://bloodgate.com in early 2001, 2002, 2004.
 
 =cut
