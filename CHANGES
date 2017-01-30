@@ -2,6 +2,26 @@
 Complete version history for Math::BigInt::Constant:
 ===================================================
 
+2016-11-28 1.09 pjacklam
+
+ * In Makefile.PL, add "#!perl" to the top, as it gives nice syntax
+   highlighting in some editors.
+
+ * In Makefile.PL, change "require 5.6.2" to "require 5.006001". Math::BigInt
+   requires only Perl v5.6.1, not v5.6.2.
+
+ * Use more of the functionality provided by Test::More.
+
+ * Add a few more test.
+
+ * "Modernise" t/pod.t and t/pod_cov.t.
+
+ * Required version of Math::BigInt is 1.999802 (was 1.85).
+
+ * Required version of Test::More is 0.47 (was 0.62).
+
+ * Update bundled version of Module::Install to 1.17 (was 0.65).
+
 2007-05-05 1.08 Tels 322 tests
   * require Math::BigInt v1.85
   * bundle and use Module::Install

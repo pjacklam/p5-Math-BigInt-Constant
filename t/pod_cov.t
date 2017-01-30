@@ -1,32 +1,38 @@
-#!/usr/bin/perl -w
+#!perl
+
+use strict;
+use warnings;
 
 use Test::More;
-use strict;
 
-my $tests;
+# Ensure a recent version of Test::Pod::Coverage
 
-BEGIN
-   {
-   $tests = 2;
-   plan tests => $tests;
-   chdir 't' if -d 't';
-   use lib '../lib';
-   };
+my $min_tpc = 1.08;
+eval "use Test::Pod::Coverage $min_tpc";
+plan skip_all =>
+  "Test::Pod::Coverage $min_tpc required for testing POD coverage"
+  if $@;
 
-SKIP:
-  {
-  skip("Test::Pod::Coverage 1.08 required for testing POD coverage", $tests)
-    unless do {
-    eval "use Test::Pod::Coverage 1.08";
-    $@ ? 0 : 1;
-    };
+# Test::Pod::Coverage doesn't require a minimum Pod::Coverage version,
+# but older versions don't recognize some common documentation styles
 
-  my $trustme = { 
-    trustme => [ qw/copy modify/ ], 
-    };
-  pod_coverage_ok( 'Math::BigInt::Constant', $trustme, "All our Math::BigInts are covered" );
-  $trustme = { 
-    trustme => [ qw/copy modify as_int/ ], 
-    };
-  pod_coverage_ok( 'Math::BigFloat::Constant', $trustme, "All our Math::BigFloats are covered" );
-  }
+my $min_pc = 0.18;
+eval "use Pod::Coverage $min_pc";
+plan skip_all => "Pod::Coverage $min_pc required for testing POD coverage"
+  if $@;
+
+plan tests => 2;
+
+my $trustme;
+
+$trustme = {
+            trustme => [ qw/copy modify/ ],
+           };
+pod_coverage_ok('Math::BigInt::Constant', $trustme,
+                "All our Math::BigInt::Constants are covered");
+
+$trustme = {
+            trustme => [ qw/copy modify as_int/ ],
+           };
+pod_coverage_ok('Math::BigFloat::Constant', $trustme,
+                "All our Math::BigFloat::Constantss are covered" );

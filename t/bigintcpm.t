@@ -3,7 +3,7 @@
 use strict;
 use Test::More;
 
-BEGIN 
+BEGIN
   {
   $| = 1;
   chdir 't' if -d 't';
@@ -51,7 +51,7 @@ my $y = Math::BigInt::Constant->new(32);
 is ($x->bgcd($y),8, 'gcd');
 $y = Math::BigInt::Constant->new(53);
 my $z = Math::BigInt::Constant->new(19);
-is ($x->blcm($y,$z),19*53*8, 'lcm');	
+is ($x->blcm($y,$z),19*53*8, 'lcm');
 my ($try,$rc);
 
 ###########################################################################
@@ -65,8 +65,8 @@ foreach (qw/
 	/)
   {
   is (ref $x,'Math::BigInt::Constant', 'ref x still ok');
-  $@ = ''; $try = "\$x->$_();"; $rc = eval $try; 
-  print "# tried: $_()\n" unless is ($x, 8, 'x is 8'); 
+  $@ = ''; $try = "\$x->$_();"; $rc = eval $try;
+  print "# tried: $_()\n" unless is ($x, 8, 'x is 8');
   is ($rc, undef, 'undef');
   like ($@, qr/^Can not.*$_/, "$_ died");
   }
@@ -81,20 +81,20 @@ foreach (qw/
 	/)
   {
   is (ref $x,'Math::BigInt::Constant', 'ref x still ok');
-  $@ = ''; $try = "\$x->$_(2);"; $rc = eval $try; 
-  print "# tried: $_()\n" unless is ($x, 8, 'x is 8'); 
+  $@ = ''; $try = "\$x->$_(2);"; $rc = eval $try;
+  print "# tried: $_()\n" unless is ($x, 8, 'x is 8');
   is ($rc, undef, 'undef');
   like ($@, qr/^Can not/, "$_ died");
   }
-        
+
 # ternary operations
 # 2*3 tests
 foreach (qw/
 	bmodpow bmodinv
 	/ )
   {
-  $@ = ''; $try = "\$x->$_(2,3);"; $rc = eval $try; 
-  print "# tried: $_()\n" unless is ($x,8, 'x is 8'); 
+  $@ = ''; $try = "\$x->$_(2,3);"; $rc = eval $try;
+  print "# tried: $_()\n" unless is ($x,8, 'x is 8');
   is ($rc, undef, 'undef');
   like ($@, qr/^Can not/, "$_ died");
   }
@@ -108,4 +108,3 @@ sub _is
   }
 
 1;
-
