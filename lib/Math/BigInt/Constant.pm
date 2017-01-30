@@ -5,7 +5,7 @@ package Math::BigInt::Constant;
 use strict;
 use warnings;
 
-our $VERSION = 1.09;
+our $VERSION = '1.10';
 
 use Math::BigInt '1.999802';
 our @ISA = qw( Math::BigInt );
