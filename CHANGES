@@ -20,6 +20,10 @@ Math::BigInt::Constant:
   * added some more tests for allowed operations
   * small doc fixes and enhancements
   * converted test file to Test::More
+2005-01-01 1.06 Tels 129 tests
+  * require Math::BigInt v1.74
+  * use like() in tests
+  * write our own META.yml in Makefile.PL to fix License field
 
 Please send me test-reports, your experiences with this and your ideas - I love
 to hear about my work!

@@ -8,7 +8,7 @@ BEGIN
   $| = 1;
   chdir 't' if -d 't';
   unshift @INC, '../lib'; 	# for running manually
-  plan tests => 26*3 + 2*3 + 19;
+  plan tests => 26*4 + 2*3 + 19;
   }
 
 use Math::BigInt::Constant;
@@ -61,10 +61,11 @@ foreach (qw/
 	bfround bround
 	/)
   {
+  is (ref $x,'Math::BigInt::Constant', 'ref x still ok');
   $@ = ''; $try = "\$x->$_(2);"; $rc = eval $try; 
-  print "# tried: $_()\n" unless is ($x,8, 'x is 8'); 
+  print "# tried: $_()\n" unless is ($x, 8, 'x is 8'); 
   is ($rc, undef, 'undef');
-  is ($@ =~ /^Can not/, 1, 'died');
+  like ($@, qr/^Can not/, "$_ died");
   }
         
 # ternary operations
@@ -76,7 +77,7 @@ foreach (qw/
   $@ = ''; $try = "\$x->$_(2,3);"; $rc = eval $try; 
   print "# tried: $_()\n" unless is ($x,8, 'x is 8'); 
   is ($rc, undef, 'undef');
-  is ($@ =~ /^Can not/, 1, 'died');
+  like ($@, qr/^Can not/, "$_ died");
   }
 
 1;
