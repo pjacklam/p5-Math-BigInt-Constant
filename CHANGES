@@ -1,31 +1,41 @@
 
-Complete version history
-========================
+Complete version history for Math::BigInt::Constant:
+===================================================
 
-############################################################################## 
-Math::BigInt::Constant:
+2007-05-05 1.08 Tels 322 tests
+  * require Math::BigInt v1.85
+  * bundle and use Module::Install
+  * add POD tests
+  * add tests for: bnok(), bexp(), as_oct() etc.
 
-2001-03-24 1.00: first version
-2001-03-27 1.01: fixed up documentation
-2001-06-15 1.02: fixed documentation to match current version
-		 added tests for band(), bior(), bxor(), bceil(), bfloor(),
-		 bnan() and binf()
-2001-06-29 1.03: fixed copy(); added tests for bgcd() and blcm()
-2002-02-10 1.04 Tels 72 tests
-  * broken out from Math::Big
-  * added blog()/bfac()/band() to the testsuite
+2006-03-14 1.07 Tels 129 tests
+  * fix failing tests due to 0 vs '' difference
+
+2005-01-01 1.06 Tels 129 tests
+  * require Math::BigInt v1.74
+  * use like() in tests
+  * write our own META.yml in Makefile.PL to fix License field
+
 2004-01-12 1.05 Tels 103 tests
   * added bfround(), bround(), bfac(), bmodinv(), bmodpow() to tests
   * removed some double tests
   * added some more tests for allowed operations
   * small doc fixes and enhancements
   * converted test file to Test::More
-2005-01-01 1.06 Tels 129 tests
-  * require Math::BigInt v1.74
-  * use like() in tests
-  * write our own META.yml in Makefile.PL to fix License field
-2006-03-14 1.07 Tels 129 tests
-  * fix failing tests due to 0 vs '' difference
+
+2002-02-10 1.04 Tels 72 tests
+  * broken out from Math::Big
+  * added blog()/bfac()/band() to the testsuite
+
+2001-06-29 1.03: fixed copy(); added tests for bgcd() and blcm()
+
+2001-06-15 1.02: fixed documentation to match current version
+		 added tests for band(), bior(), bxor(), bceil(), bfloor(),
+		 bnan() and binf()
+
+2001-03-27 1.01: fixed up documentation
+
+2001-03-24 1.00: first version
 
 Please send me test-reports, your experiences with this and your ideas - I love
 to hear about my work!
