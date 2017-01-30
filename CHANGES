@@ -1,6 +1,11 @@
 Complete version history for Math::BigInt::Constant:
 ===================================================
 
+2016-12-08 1.11 pjacklam
+
+ * Add more tests, including tests for the from_hex(), from_oct(), from_bin(),
+   and from_bytes() to confirm latest fix in Math-BigInt-1.999804 regarding 
+
 2016-12-03 1.10 pjacklam
 
  * Use ExtUtils::MakeMaker rather than Module::Install in Makefile.PL
