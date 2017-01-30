@@ -24,6 +24,8 @@ Math::BigInt::Constant:
   * require Math::BigInt v1.74
   * use like() in tests
   * write our own META.yml in Makefile.PL to fix License field
+2006-03-14 1.07 Tels 129 tests
+  * fix failing tests due to 0 vs '' difference
 
 Please send me test-reports, your experiences with this and your ideas - I love
 to hear about my work!

@@ -32,10 +32,10 @@ is ($x->is_pos(), 1, 'is_pos');
 is ($x->is_int(), 1, 'is_int');
 
 is ($x->is_neg(), 0, 'is_neg');
-is ($x->is_one(), 0, 'is_one');
+is ($x->is_one() || 0, 0, 'is_one');
 is ($x->is_nan(), 0, 'is_nan');
 is ($x->is_inf(), 0, 'is_inf');
-is ($x->is_zero(), 0, 'is_zero');
+is ($x->is_zero() || 0, 0, 'is_zero');
 
 is ($x->bstr(), '8' , 'bstr');
 is ($x->bsstr(), '8e+0' , 'bsstr');
