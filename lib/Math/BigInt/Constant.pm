@@ -3,7 +3,7 @@
 package Math::BigInt::Constant;
 my $class = "Math::BigInt::Constant";
 
-$VERSION = 1.06;
+$VERSION = 1.07;
 use Math::BigInt;
 @ISA =       qw( Math::BigInt );
 use strict;
@@ -161,6 +161,6 @@ L<Math::BigInt>.
 
 =head1 AUTHORS
 
-(c) by Tels L<http://bloodgate.com/> in early 2001 - 2005.
+(c) by Tels L<http://bloodgate.com/> in early 2001 - 2006.
 
 =cut
