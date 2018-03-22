@@ -1,5 +1,7 @@
 1.12 Not Released
 
+ * Add test file t/release-test-version.t.
+
  * Add test file t/release-portability.t.
 
  * Use the default MANIFEST.SKIP file from ExtUtils::Manifest.
