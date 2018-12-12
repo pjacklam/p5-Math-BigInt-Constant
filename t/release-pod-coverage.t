@@ -1,7 +1,14 @@
 #!perl
 
-use strict;
-use warnings;
+BEGIN {
+    unless ($ENV{RELEASE_TESTING}) {
+        print "1..0 # SKIP these tests are for release candidate testing";
+        exit;
+    }
+}
+
+use strict;                     # restrict unsafe constructs
+use warnings;                   # enable optional warnings
 
 use Test::More;
 
@@ -25,14 +32,18 @@ plan tests => 2;
 
 my $trustme;
 
+# Math::BigInt::Constant
+
 $trustme = {
-            trustme => [ qw/copy modify/ ],
+            trustme => [ 'copy', 'modify' ],
            };
 pod_coverage_ok('Math::BigInt::Constant', $trustme,
                 "All our Math::BigInt::Constants are covered");
 
+# Math::BigFloat::Constant
+
 $trustme = {
-            trustme => [ qw/copy modify as_int/ ],
+            trustme => [ 'copy', 'modify', 'as_int' ],
            };
 pod_coverage_ok('Math::BigFloat::Constant', $trustme,
                 "All our Math::BigFloat::Constantss are covered" );
