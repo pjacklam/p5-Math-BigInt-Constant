@@ -5,7 +5,7 @@ package Math::BigFloat::Constant;
 use strict;
 use warnings;
 
-our $VERSION = '1.12';
+our $VERSION = '1.13';
 
 use Math::BigFloat '1.999802';
 our @ISA = qw( Math::BigFloat );
